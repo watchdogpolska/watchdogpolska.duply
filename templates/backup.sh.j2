@@ -1,0 +1,15 @@
+#!/bin/sh
+# {{ansible_managed}}
+# This script executes duply verfiy every FREQUENCY days.
+# It's randomized by SEED - pseudorandom node-dependent value.
+
+DAY_NO=$(date +"%j");
+FREQUENCY="{{duply__frequency_verify}}";
+SEED="{{duply__frequency_verify | random(seed=inventory_hostname) }}";
+
+n=$((DAY_NO%FREQUENCY))
+if [ "$n" -eq "$SEED" ] ; then
+    duply main backup_verify_purge_status --force;
+else
+    duply main backup_status;
+fi

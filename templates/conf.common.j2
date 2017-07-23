@@ -1,0 +1,23 @@
+# {{ansible_managed}}
+SOURCE='{{ duply__source }}'
+GPG_PW='{{ duply__pw }}'
+MAX_AGE='{{ duply__max_age }}'
+MAX_FULL_BACKUPS={{ duply__max_full_backups }}
+{% if duply__max_fullbkp_age is defined %}
+MAX_FULLBKP_AGE={{ duply__max_fullbkp_age }}
+DUPL_PARAMS="$DUPL_PARAMS --full-if-older-than $MAX_FULLBKP_AGE " 
+{% endif %}
+
+{% if duply__asynchronous_upload %}
+DUPL_PARAMS="$DUPL_PARAMS --asynchronous-upload "
+{% endif %}
+
+{% if duply__volsize is defined %}
+DUPL_PARAMS="$DUPL_PARAMS --volsize {{duply__volsize}}"
+{% endif %}
+
+{% if duply__compression_level is defined and duply__compress_algo is defined %}
+# Specify custom compression level
+# See https://bugs.launchpad.net/duplicity/+bug/503309
+DUPL_PARAMS="$DUPL_PARAMS --gpg-options '--compress-algo={{duply__compress_algo}} -z {{duply__compression_level}}' "
+{% endif %}

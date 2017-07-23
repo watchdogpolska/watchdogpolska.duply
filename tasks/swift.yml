@@ -1,0 +1,7 @@
+- name: Ensure swift client installed
+  pip: name=python-swiftclient state=present
+
+- name: Ensure duply configuration exists
+  template:
+    src: "conf.swift.j2"
+    dest: /root/.duply/main/conf

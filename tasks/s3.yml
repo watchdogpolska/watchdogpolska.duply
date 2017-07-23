@@ -1,0 +1,15 @@
+- name: Ensure S3 dependencies installed
+  pip: 
+    name: boto
+    state: present
+
+- name: Ensure secrets for S3 was saved
+  template:
+    src: boto.j2
+    dest: /root/.boto
+    mode: g=,o=
+
+- name: Ensure duply configuration exists
+  template:
+    src: "conf.s3.j2"
+    dest: /root/.duply/main/conf

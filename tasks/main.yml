@@ -1,0 +1,76 @@
+---
+# tasks file for watchdogpolska.duply
+
+- fail:
+    msg: "Value of 'duply__storage' should be in ['s3', 'swift', 'sftp']"
+  when: duply__storage != "s3" and duply__storage != "swift" and duply__storage != "sftp"
+
+- name: Ensure duplicity-team PPA repository used
+  apt_repository:
+    repo: 'ppa:duplicity-team/ppa'
+
+- name: Ensure duply installed
+  apt:
+    name: "{{item}}"
+    state: "latest"
+    cache_valid_time: 3600
+  with_items:
+    - python-pip
+    - duply
+    - duplicity
+
+- name: Ensure duply configuration directory exists
+  file: 
+    dest: "{{ item }}"
+    state: directory
+  with_items:
+    - /root/.duply
+    - /root/.duply/main
+
+- name: Ensure duply scripts exists
+  template:
+    src: "{{item.src}}"
+    dest: /root/.duply/main/{{item.dest}}
+  with_items:
+    - src: exclude.j2
+      dest: exclude
+    - src: pre.j2
+      dest: pre
+
+- name: Make pre scripts executable
+  file: 
+    dest: /root/.duply/main/pre
+    mode: u+x
+
+- include: s3.yml
+  when: duply__storage == "s3"
+
+- include: swift.yml
+  when: duply__storage == "swift"
+
+- include: sftp.yml
+  when: duply__storage == "sftp"
+
+- name: Ensure duply configuration are valid
+  shell: duply main status
+
+- name: Ensure non-exists obsolete cron job
+  cron: 
+    name: "Backup job (see ~/.duply/main/conf)"
+    minute: "0"
+    hour: "1"
+    job: "duply main backup_verify_purge_status --force"
+    state: absent
+
+- name: Ensure backup script exists
+  template:
+    src: backup.sh.j2
+    dest: /root/backup.sh
+    mode: u=rx
+
+- name: "Ensure cron job to perform backup exists"
+  cron: 
+    name: "Backup job (see ~/.duply/main/conf)"
+    minute: "0"
+    hour: "1"
+    job: "/root/backup.sh"

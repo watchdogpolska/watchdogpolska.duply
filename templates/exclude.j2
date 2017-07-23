@@ -1,0 +1,8 @@
+# {{ansible_managed}}
+{% for item in duply__exclude %}
+- {{ item }}
+{% endfor %}
+{% for item in duply__include %}
++ {{ item }}
+{% endfor %}
+- **

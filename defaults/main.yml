@@ -1,0 +1,56 @@
+---
+# defaults file for watchdogpolska.duply
+duply__exclude: 
+  - /var/lib/lxcfs
+  - /root/.cache/duplicity/
+  - /home/*/.cache/pip
+duply__include: 
+  - /root
+  - /etc
+  - /home
+duply__mysql_backup: false
+duply__postgresql_backup: false
+duply__pw: 'ReallyStrongSecret'
+duply__asynchronous_upload: false
+duply__frequency_verify: 7
+# == Compression ==
+# # See `man gpg`
+# # Use ``gpg --version`` to supported algor
+# duply__compression_level: 9
+# duply__compress_algo: zlib
+# == s3 storage ==
+# duply__storage: 's3'
+# duply__s3_host: e24files.com
+# duply__s3_bucket: backup-{{ansible_hostname}}
+# duply__s3_path: main/
+# duply__s3__access_key: 'CHANGE_ME'
+# duply__secret_access: 'CHANGE_ME'
+
+#swift
+# duply__storage: 'swift'
+# duply__swift_host: ocs-pl.oktawave.com
+# duply__swift_auth: v1.0
+# duply__swift_container: 'backup-{{ansible_hostname}}'
+# duply__swift_user: 'CHANGE_ME'
+# duply__swift_password: 'CHANGE_ME'
+
+#sftp
+# duply__storage: 'sftp'
+# duply__sftp_host: '185.81.166.160'
+# duply__sftp_path: 'backup'
+# duply__sftp_user: 'backup-{{ansible_hostname}}'
+# duply__sftp_ssh_key: |
+#     -----BEGIN RSA PRIVATE KEY-----
+#     ...
+#     Encrypt that, please!
+#     How to: https://stackoverflow.com/questions/29392369/ansible-ssh-private-key-in-source-control
+#     ...
+#     -----END RSA PRIVATE KEY-----
+# duply__sftp_key_file: /root/.ssh/id_rsa
+
+duply__source: '/'
+duply__max_age: 1M
+duply__max_full_backups: 4
+duply__max_fullbkp_age: 7D
+duply__pre_script: "{{duply__mysql_backup}}"
+duply__volsize: 50  # duplicity default is 200MB

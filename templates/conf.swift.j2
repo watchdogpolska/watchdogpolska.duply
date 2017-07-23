@@ -1,0 +1,5 @@
+{% include "conf.common.j2" %}
+export SWIFT_AUTHURL='https://{{ duply__swift_host }}/auth/{{duply__swift_auth}}'
+export SWIFT_USERNAME='{{duply__swift_user}}'
+export SWIFT_PASSWORD='{{duply__swift_password}}'
+TARGET='swift://{{duply__swift_container}}'
