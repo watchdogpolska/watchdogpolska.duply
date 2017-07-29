@@ -1,0 +1,10 @@
+- name: Ensure azure storage client installed
+  pip: 
+    name: azure-storage
+    state: present
+    version: "0.20.3" # See https://bugs.launchpad.net/duplicity/+bug/1694770
+
+- name: Ensure duply configuration exists
+  template:
+    src: "conf.azure.j2"
+    dest: /root/.duply/main/conf

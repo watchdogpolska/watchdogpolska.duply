@@ -48,6 +48,12 @@ duply__frequency_verify: 7
 #     -----END RSA PRIVATE KEY-----
 # duply__sftp_key_file: /root/.ssh/id_rsa
 
+#azure
+# duply__storage: 'azure'
+# duply__container: 'xxxxx'
+# duply__azure_account_name: 'xx'
+# duply__azure_account_key: 'xx'
+
 duply__source: '/'
 duply__max_age: 1M
 duply__max_full_backups: 4
