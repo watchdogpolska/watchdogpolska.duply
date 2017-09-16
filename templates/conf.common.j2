@@ -21,3 +21,8 @@ DUPL_PARAMS="$DUPL_PARAMS --volsize {{duply__volsize}}"
 # See https://bugs.launchpad.net/duplicity/+bug/503309
 DUPL_PARAMS="$DUPL_PARAMS --gpg-options '--compress-algo={{duply__compress_algo}} -z {{duply__compression_level}}' "
 {% endif %}
+
+{% if duply__memory_efficient %}
+# See https://bugs.launchpad.net/duplicity/+bug/1005478
+DUPL_PARAMS="$DUPL_PARAMS --max-blocksize=20480"
+{% endif %}
