@@ -29,30 +29,33 @@
 
 - name: Ensure duply scripts exists
   template:
-    src: "{{item.src}}"
-    dest: /root/.duply/main/{{item.dest}}
+    src: "{{ item }}.j2"
+    dest: /root/.duply/main/{{ item }}
   with_items:
-    - src: exclude.j2
-      dest: exclude
-    - src: pre.j2
-      dest: pre
+    - exclude
+    - pre
+    - post
 
-- name: Make pre scripts executable
-  file: 
-    dest: /root/.duply/main/pre
-    mode: u+x
+- name: Ensure backup data-dir exist
+  file:
+    path: '{{ duply__datadir }}'
+    state: directory
 
-- include: s3.yml
-  when: duply__storage == "s3"
+- name: Ensure MySQL backup data-dir exist
+  file:
+    dest: '{{ duply__datadir }}/mysql'
+    state: directory
+  when: duply__mysql_backup
 
-- include: swift.yml
-  when: duply__storage == "swift"
+- name: Ensure PostgreSQL backup data-dir exist
+  file:
+    dest: '{{ duply__datadir }}/postgresql'
+    owner: postgres
+    group: postgres
+    state: directory
+  when: duply__postgresql_backup
 
-- include: sftp.yml
-  when: duply__storage == "sftp"
-
-- include: azure.yml
-  when: duply__storage == "azure"
+- include_tasks: 'storage-{{ duply__storage }}.yml'
 
 - name: Ensure duply configuration are valid
   shell: duply main status
@@ -77,3 +80,11 @@
     minute: "0"
     hour: "1"
     job: "/root/backup.sh"
+
+- name: Ensure obsolete backup files removed
+  file:
+    path: "{{item}}"
+    state: absent
+  with_items:
+  - "/root/backup.sql.gz"
+  - "/root/backup.postgres.sql.gz"
