@@ -14,6 +14,8 @@ duply__pw: 'ReallyStrongSecret'
 duply__asynchronous_upload: false
 duply__frequency_verify: 7
 duply__memory_efficient: false
+duply__datadir: /var/backups/watchdogpolska.duply
+
 # == Compression ==
 # # See `man gpg`
 # # Use ``gpg --version`` to supported algor
