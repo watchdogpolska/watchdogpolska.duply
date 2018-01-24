@@ -1,9 +1,9 @@
 #!/bin/sh
 # {{ansible_managed}}
 {% if duply__mysql_backup %}
-    mysqldump --defaults-file=/etc/mysql/debian.cnf --all-databases  --single-transaction > /root/backup.sql
+    mysqldump --defaults-file=/etc/mysql/debian.cnf --all-databases  --single-transaction > {{duply__datadir}}/mysql/mysql-$(date +%F).sql
 {% endif %}
 
 {% if duply__postgresql_backup %}
-    sudo -u postgres pg_dumpall > /root/backup.postgres.sql
+    sudo -u postgres pg_dumpall > {{duply__datadir}}/postgres/postgres-$(date +%F).sql
 {% endif %}

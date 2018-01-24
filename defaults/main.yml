@@ -4,10 +4,12 @@ duply__exclude:
   - /var/lib/lxcfs
   - /root/.cache/duplicity/
   - /home/*/.cache/pip
+  - /home/*/nobackup
 duply__include: 
   - /root
   - /etc
   - /home
+  - "{{duply__datadir}}"
 duply__mysql_backup: false
 duply__postgresql_backup: false
 duply__pw: 'ReallyStrongSecret'
