@@ -1,25 +1,26 @@
+---
 - name: Ensure S3 dependencies installed
-  pip: 
+  pip:
     name: paramiko
     state: present
 
 - name: Ensure .ssh directory exists.
-  file: 
+  file:
     dest: "{{ duply__sftp_key_file | dirname }}"
-    mode: 0700 
-    owner: root 
+    mode: 0700
+    owner: root
     state: directory
 
 - name: Install ssh private key
-  copy: 
-    content: "{{ duply__sftp_ssh_key }}" 
+  copy:
+    content: "{{ duply__sftp_ssh_key }}"
     dest: "{{ duply__sftp_key_file }}"
     mode: 0600
     owner: root
 
 - name: Install ssh public key
-  copy: 
-    content: "{{ duply__sftp_ssk_key_pub }}" 
+  copy:
+    content: "{{ duply__sftp_ssk_key_pub }}"
     dest: "{{ duply__sftp_key_file }}.pub"
     mode: 0600
     owner: root

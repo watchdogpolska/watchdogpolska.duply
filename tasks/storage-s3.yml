@@ -1,5 +1,6 @@
+---
 - name: Ensure S3 dependencies installed
-  pip: 
+  pip:
     name: boto
     state: present
 

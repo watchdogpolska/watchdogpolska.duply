@@ -1,11 +1,11 @@
 ---
 # defaults file for watchdogpolska.duply
-duply__exclude: 
+duply__exclude:
   - /var/lib/lxcfs
   - /root/.cache/duplicity/
   - /home/*/.cache/pip
   - /home/*/nobackup
-duply__include: 
+duply__include:
   - /root
   - /etc
   - /home
@@ -31,7 +31,7 @@ duply__datadir: /var/backups/watchdogpolska.duply
 # duply__s3__access_key: 'CHANGE_ME'
 # duply__secret_access: 'CHANGE_ME'
 
-#swift
+# swift
 # duply__storage: 'swift'
 # duply__swift_host: ocs-pl.oktawave.com
 # duply__swift_auth: v1.0
@@ -39,7 +39,7 @@ duply__datadir: /var/backups/watchdogpolska.duply
 # duply__swift_user: 'CHANGE_ME'
 # duply__swift_password: 'CHANGE_ME'
 
-#sftp
+# sftp
 # duply__storage: 'sftp'
 # duply__sftp_host: '185.81.166.160'
 # duply__sftp_path: 'backup'
@@ -47,13 +47,11 @@ duply__datadir: /var/backups/watchdogpolska.duply
 # duply__sftp_ssh_key: |
 #     -----BEGIN RSA PRIVATE KEY-----
 #     ...
-#     Encrypt that, please!
-#     How to: https://stackoverflow.com/questions/29392369/ansible-ssh-private-key-in-source-control
 #     ...
 #     -----END RSA PRIVATE KEY-----
 # duply__sftp_key_file: /root/.ssh/id_rsa
 
-#azure
+# azure
 # duply__storage: 'azure'
 # duply__container: 'xxxxx'
 # duply__azure_account_name: 'xx'

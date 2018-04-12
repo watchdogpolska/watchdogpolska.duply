@@ -3,7 +3,7 @@
 
 - fail:
     msg: "Value of 'duply__storage' should be in ['s3', 'swift', 'sftp', 'azure']"
-  when: duply__storage != "s3" and duply__storage != "swift" and duply__storage != "sftp" and duply__storage != "azure"
+  when: duply__storage not in ["s3", "swift", "sftp", "azure"]
 
 - name: Ensure duplicity-team PPA repository used
   apt_repository:
@@ -20,7 +20,7 @@
     - duplicity
 
 - name: Ensure duply configuration directory exists
-  file: 
+  file:
     dest: "{{ item }}"
     state: directory
   with_items:
@@ -61,7 +61,7 @@
   shell: duply main status
 
 - name: Ensure non-exists obsolete cron job
-  cron: 
+  cron:
     name: "Backup job (see ~/.duply/main/conf)"
     minute: "0"
     hour: "1"
@@ -75,7 +75,7 @@
     mode: u=rx
 
 - name: "Ensure cron job to perform backup exists"
-  cron: 
+  cron:
     name: "Backup job by duply (see ~/.duply/main/conf for settings)"
     minute: "0"
     hour: "1"
@@ -86,5 +86,5 @@
     path: "{{item}}"
     state: absent
   with_items:
-  - "/root/backup.sql.gz"
-  - "/root/backup.postgres.sql.gz"
+    - "/root/backup.sql.gz"
+    - "/root/backup.postgres.sql.gz"

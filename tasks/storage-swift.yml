@@ -1,3 +1,4 @@
+---
 - name: Ensure swift client installed
   pip: name=python-swiftclient state=present
 

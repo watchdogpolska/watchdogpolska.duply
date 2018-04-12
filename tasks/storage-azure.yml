@@ -1,5 +1,6 @@
+---
 - name: Ensure azure storage client installed
-  pip: 
+  pip:
     name: azure-storage
     state: present
     version: "0.20.3" # See https://bugs.launchpad.net/duplicity/+bug/1694770
