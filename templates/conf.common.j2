@@ -26,3 +26,7 @@ DUPL_PARAMS="$DUPL_PARAMS --gpg-options '--compress-algo={{duply__compress_algo}
 # See https://bugs.launchpad.net/duplicity/+bug/1005478
 DUPL_PARAMS="$DUPL_PARAMS --max-blocksize=20480"
 {% endif %}
+
+{% if duply__archive_dir is defined %}
+DUPL_PARAMS="$DUPL_PARAMS --archive-dir={{ duply__archive_dir }}
+{% endif %}
