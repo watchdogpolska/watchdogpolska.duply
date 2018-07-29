@@ -3,6 +3,7 @@
   pip:
     name: paramiko
     state: present
+    executable: "{{ duply__pip_executable }}"
 
 - name: Ensure .ssh directory exists.
   file:

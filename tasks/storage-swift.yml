@@ -1,6 +1,9 @@
 ---
 - name: Ensure swift client installed
-  pip: name=python-swiftclient state=present
+  pip:
+    name: python-swiftclient
+    state: present
+    executable: "{{ duply__pip_executable }}"
 
 - name: Ensure duply configuration exists
   template:

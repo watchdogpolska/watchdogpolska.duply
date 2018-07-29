@@ -4,6 +4,7 @@
     name: azure-storage
     state: present
     version: "0.20.3" # See https://bugs.launchpad.net/duplicity/+bug/1694770
+    executable: "{{ duply__pip_executable }}"
 
 - name: Ensure duply configuration exists
   template:

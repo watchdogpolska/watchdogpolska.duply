@@ -70,7 +70,7 @@
 
 - name: Ensure backup script exists
   template:
-    src: backup.sh.j2
+    dest: "{{duply__script_location}}"
     dest: /root/backup.sh
     mode: u=rx
 
@@ -79,7 +79,8 @@
     name: "Backup job by duply (see ~/.duply/main/conf for settings)"
     minute: "0"
     hour: "1"
-    job: "/root/backup.sh"
+    job: "{{duply__script_location}}"
+ 
 
 - name: Ensure obsolete backup files removed
   file:
@@ -88,3 +89,10 @@
   with_items:
     - "/root/backup.sql.gz"
     - "/root/backup.postgres.sql.gz"
+
+- name: Ensure obsolete backup script removed
+  file:
+    path: "/root/backup.sh"
+    state: absent
+  when: duply__script_location != '/root/backup.sh'
+

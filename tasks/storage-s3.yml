@@ -3,6 +3,7 @@
   pip:
     name: boto
     state: present
+    executable: "{{ duply__pip_executable }}"
 
 - name: Ensure secrets for S3 was saved
   template:

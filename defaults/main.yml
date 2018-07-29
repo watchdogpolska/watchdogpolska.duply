@@ -17,6 +17,8 @@ duply__asynchronous_upload: false
 duply__frequency_verify: 7
 duply__memory_efficient: false
 duply__datadir: /var/backups/watchdogpolska.duply
+duply__pip_executable: /usr/bin/pip2
+duply__script_location: /root/backup.sh
 
 # == Compression ==
 # # See `man gpg`
