@@ -70,6 +70,7 @@
 
 - name: Ensure backup script exists
   template:
+    src: backup.sh.j2
     dest: "{{duply__script_location}}"
     mode: u=rx
 
@@ -78,8 +79,10 @@
     name: "Backup job by duply (see ~/.duply/main/conf for settings)"
     minute: "0"
     hour: "1"
-    job: "{{duply__script_location}}"
- 
+    job: >-
+      {{ duply__backupcmd_prefix }}
+      {{ duply__script_location }}
+      {{ duply__backupcmd_postfix }}
 
 - name: Ensure obsolete backup files removed
   file:
