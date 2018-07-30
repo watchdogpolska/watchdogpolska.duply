@@ -71,7 +71,6 @@
 - name: Ensure backup script exists
   template:
     dest: "{{duply__script_location}}"
-    dest: /root/backup.sh
     mode: u=rx
 
 - name: "Ensure cron job to perform backup exists"
