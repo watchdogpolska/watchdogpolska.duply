@@ -19,6 +19,8 @@ duply__memory_efficient: false
 duply__datadir: /var/backups/watchdogpolska.duply
 duply__pip_executable: /usr/bin/pip2
 duply__script_location: /root/backup.sh
+duply__backupcmd_prefix: ''
+duply__backupcmd_postfix: ''
 
 # == Compression ==
 # # See `man gpg`
