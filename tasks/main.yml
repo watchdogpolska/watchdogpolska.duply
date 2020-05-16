@@ -5,15 +5,20 @@
     msg: "Value of 'duply__storage' should be in ['s3', 'swift', 'sftp', 'azure']"
   when: duply__storage not in ["s3", "swift", "sftp", "azure"]
 
-- name: Ensure duplicity-team PPA repository used
+- name: Ensure obsolete duplicity-team PPA repository disabled
   apt_repository:
     repo: 'ppa:duplicity-team/ppa'
+    state: absent
+
+- name: Ensure current duplicity-team PPA repository used
+  apt_repository:
+    repo: 'ppa:duplicity-team/duplicity-release-git'
 
 - name: Ensure duply installed
   apt:
     name: "{{item}}"
     state: "latest"
-    cache_valid_time: 3600
+    cache_valid_time: "3600"
   with_items:
     - python-pip
     - duply
